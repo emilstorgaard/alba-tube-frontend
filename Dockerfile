@@ -17,8 +17,8 @@ RUN yarn add jsonwebtoken
 # Copy the rest of the application code
 RUN yarn build
 
-# Expose port 8180 to the outside world
-EXPOSE 8180
+# Expose port 8980 to the outside world
+EXPOSE 8980
 
 # Command to run the application
-CMD ["yarn", "preview", "--", "--port", "8180", "--host", "0.0.0.0"]
+CMD ["yarn", "preview", "--", "--port", "8980", "--host", "0.0.0.0"]

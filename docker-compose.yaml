@@ -4,4 +4,4 @@ services:
   frontend:
     image: alba_tube_frontend:latest
     ports:
-      - '8180:8180'
+      - '8980:8980'
