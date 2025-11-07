@@ -1,0 +1,7 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: alba_tube_frontend:latest
+    ports:
+      - '8180:8180'
