@@ -6,7 +6,7 @@
 	import VideoList from '$lib/components/VideoList.svelte';
 	import { onMount } from 'svelte';
 	import { fetchPopularVideos } from '$lib/utils/videos';
-	import { fetchUser, subscribeToUser, unsubscribeFromUser } from '$lib/utils/user';
+	import { fetchSubscriptions, fetchUser, subscribeToUser, unsubscribeFromUser } from '$lib/utils/user';
 
 	onMount(async () => {
 		if (!$selectedUserStore) {
@@ -28,6 +28,7 @@
 			}
 
 			// Opdater abonnementsstatus i selectedUserStore
+            await fetchSubscriptions();
 			await fetchUser($selectedUserStore.id);
 		} catch (e) {
 			console.error('Failed to toggle subscription:', e);
