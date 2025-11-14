@@ -1,8 +1,10 @@
 import { selectedUserVideosStore } from "$lib/stores/userStore";
 import { selectedVideoStore } from "$lib/stores/videoStore";
 import { API_BASE_URL } from "./config";
+import { getCookie } from "./cookies";
 
 export const fetchVideos = async (userId: number) => {
+    console.log("Fetching videos for userId:", userId);
     const response = await fetch(`${API_BASE_URL}/Videos/user/${userId}`, {
         method: "GET",
     });
@@ -17,9 +19,31 @@ export const fetchVideos = async (userId: number) => {
     selectedUserVideosStore.set(videos);
 };
 
+export const fetchPopularVideos = async () => {
+    const response = await fetch(`${API_BASE_URL}/Videos/popular`, {
+        method: "GET",
+    });
+    
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Get vidoes by user failed.");
+    }
+        
+    const videos = await response.json();
+    selectedUserVideosStore.set(videos);
+};
+
 export const fetchVideo = async (videoId: number) => {
+    const jwt = getCookie('jwt');
+    const headers: Record<string, string> = {};
+
+    if (jwt) {
+        headers['Authorization'] = `Bearer ${jwt}`;
+    }
+
     const response = await fetch(`${API_BASE_URL}/videos/${videoId}`, {
         method: "GET",
+        headers
     });
     
     if (!response.ok) {
@@ -28,7 +52,6 @@ export const fetchVideo = async (videoId: number) => {
     }
         
     const video = await response.json();
-    console.log("Fetched video:", video);
     selectedVideoStore.set(video);
 };
 
@@ -96,5 +119,33 @@ export async function uploadVideo(title: string, description: string, thumbnail:
         throw new Error(errorData.error || "Upload video failed.");
     }
     
+    return;
+}
+
+export async function likeVideo(videoId: Number) {
+    const jwt = getCookie('jwt');
+    const response = await fetch(`${API_BASE_URL}/videos/${videoId}/like`, {
+        method: "POST",
+        headers: { 'Authorization': `Bearer ${jwt}` }
+    });
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Liking video failed.");
+    }
+
+    return;
+}
+
+export async function dislikeVideo(videoId: Number) {
+    const jwt = getCookie('jwt');
+    const response = await fetch(`${API_BASE_URL}/videos/${videoId}/dislike`, {
+        method: "POST",
+        headers: { 'Authorization': `Bearer ${jwt}` }
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Disliking video failed.");
+    }
     return;
 }

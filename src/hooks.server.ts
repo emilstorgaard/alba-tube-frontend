@@ -24,11 +24,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 			return new Response('Invalid or expired token', { status: 401 });
 		}
 
-		// Extract user details safely
-		const { email, uid } = decodedToken as { email: string; uid: string; };
-
 		// Add user to event.locals
-		event.locals.user = { email, uid, jwt: token };
+		event.locals.user = { jwt: token };
 	}
 
 	const response = await resolve(event);

@@ -1,11 +1,11 @@
 <script lang="ts">
     import { usersStore, selectedUserStore } from '$lib/stores/userStore';
-	import { fetchUsers } from '$lib/utils/user';
+	import { fetchSubscriptions } from '$lib/utils/user';
 	import { onMount } from 'svelte';
     import { API_BASE_URL } from '$lib/utils/config';
 
     onMount(() => {
-        fetchUsers();
+        fetchSubscriptions();
     });
 
 </script>

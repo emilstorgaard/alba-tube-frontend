@@ -1,10 +1,10 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
-	import { uploadSong } from "$lib/utils/songs"
 	import { userStore } from '$lib/stores/auth';
 	import Modal from './Modal.svelte';
 	import { triggerToast } from '$lib/stores/toastStore';
-	import { uploadVideo } from '$lib/utils/videos';
+	import { fetchVideos, uploadVideo } from '$lib/utils/videos';
+	import { selectedUserStore } from '$lib/stores/userStore';
 
 	let title = "";
 	let description = "";
@@ -31,12 +31,18 @@
         event.preventDefault();
 
         try {
-			const jwt = $userStore?.jwt
+			const jwt = $userStore?.jwt;
 
 			if (!jwt) throw new Error("Authentication token (JWT) is required.");
 
             await uploadVideo(title, description, thumbnail, video, jwt);
 			close()
+
+			if ($selectedUserStore && $userStore && $userStore.user.id === $selectedUserStore.id) {
+				await fetchVideos($selectedUserStore.id);
+			}
+
+			triggerToast('Video uploaded successfully!', 'success');
         } catch (error: any) {
             triggerToast(error.message, 'error');
         }

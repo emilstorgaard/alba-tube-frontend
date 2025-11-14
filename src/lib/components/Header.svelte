@@ -96,9 +96,6 @@
 			  	</div>
 				{:else}
 			  	<div class="py-1" role="none">
-					<a href={`/user/${$userStore.uid}`} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200" role="menuitem" tabindex="-1" id="menu-item-0">
-						Profile
-					</a>
 					<button title="Upload Video" on:click={openUploadVideoModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200">Upload Video</button>
 					<button title="Logout" on:click={handleLogout} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-red-600 rounded transition duration-200">Log out</button>
 			  	</div>
@@ -142,9 +139,6 @@
 							Log in
 						</button>
 						{:else}
-						<a href={`/user/${$userStore.uid}`} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-green rounded hover:bg-light-green transition duration-200" role="menuitem" tabindex="-1" id="menu-item-0">
-							Profile
-						</a>
 						<button title="Upload Video" on:click={openUploadVideoModal} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-green rounded hover:bg-light-green transition duration-200">
 							Upload Video
 						</button>

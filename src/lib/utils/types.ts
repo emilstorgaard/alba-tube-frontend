@@ -30,8 +30,8 @@ export interface Video {
 }
 
 export interface Search {
-    playlists: Playlist[];
-    songs: Song[];
+    videos: Video[];
+    users: User[];
 }
 
 export interface User {
@@ -40,4 +40,5 @@ export interface User {
     username: string;
     profileImageParh: string;
     subscriberCount: number;
+    isSubscribed: boolean;
 }

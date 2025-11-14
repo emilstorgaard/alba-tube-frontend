@@ -1,5 +1,4 @@
 <script lang="ts">
-  import { currentSongIndex, isPaused } from '$lib/stores/songStore';
   import { fetchVideos } from '$lib/utils/videos';
   import { onMount } from 'svelte';
   import { API_BASE_URL } from '$lib/utils/config';

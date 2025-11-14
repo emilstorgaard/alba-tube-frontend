@@ -5,11 +5,11 @@
 	import { deleteSong, dislikeSong, fetchSongs, likeSong, removeSongFromPlaylist } from '$lib/utils/songs';
 	import { onMount } from 'svelte';
 	import { API_BASE_URL } from '$lib/utils/config';
-	import { userStore } from '$lib/stores/auth';
 	import { triggerToast } from '$lib/stores/toastStore';
 	import EditSongModal from './EditSongModal.svelte';
 	import type { Song } from '$lib/utils/types';
 	import { formatDuration } from '$lib/utils/format';
+	import { userStore } from '$lib/stores/auth';
 
 	let selectedSongId: number | null = null;
 
@@ -64,6 +64,7 @@
 			if (selectedPlaylist) {
 				const jwt = $userStore?.jwt;
 
+				if (!jwt) return;
 				fetchSongs(selectedPlaylist.id, jwt);
 			}
 		});

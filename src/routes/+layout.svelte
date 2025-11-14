@@ -5,20 +5,18 @@
 	import Footer from '$lib/components/Footer.svelte';
 
 	import { page } from '$app/stores';
-	import { selectedPlaylistStore, selectedPlaylistSongsStore } from '$lib/stores/playlistStore';
 
 	import { userStore } from '$lib/stores/auth';
 	import Toast from '$lib/components/Toast.svelte';
 	import { currentSong } from '$lib/stores/songStore';
+	import { fetchUserData } from '$lib/utils/user';
 
 	$: if (!$page.data.loggedInUser) {
-	    selectedPlaylistStore.set(null);
-	    selectedPlaylistSongsStore.set([]);
 		userStore.set(null);
 	}
 
 	$: if ($page.data.loggedInUser) {
-		userStore.set($page.data.loggedInUser);
+		fetchUserData();
     }
 
 	$: title = $currentSong ? `${$currentSong.title} - ${$currentSong.artist}` : 'AlbaTube';

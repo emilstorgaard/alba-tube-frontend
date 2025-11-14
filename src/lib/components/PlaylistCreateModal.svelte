@@ -1,9 +1,9 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
 	import { createPlaylist } from '$lib/utils/playlists';
-	import { userStore } from '$lib/stores/auth';
 	import { triggerToast } from '$lib/stores/toastStore';
     import Modal from './Modal.svelte';
+	import { userStore } from '$lib/stores/auth';
 
     const dispatch = createEventDispatcher();
 
@@ -19,7 +19,7 @@
 
     async function handleCreatePlaylist() {
         try {
-			const jwt = $userStore?.jwt
+			const jwt = $userStore?.jwt;
 
             if (!jwt) throw new Error("Authentication token (JWT) is required.");
 
