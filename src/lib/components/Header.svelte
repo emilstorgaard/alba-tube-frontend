@@ -6,6 +6,29 @@
 	import { logout } from "$lib/utils/auth";
 	import { userStore } from '$lib/stores/auth';
 	import { triggerToast } from "$lib/stores/toastStore";
+	import Modal from '$lib/components/Modal.svelte';
+	import { deleteUserAccount } from "$lib/utils/user";
+
+	let showDeleteModal = false;
+
+	function openDeleteModal() {
+		showDeleteModal = true;
+	}
+
+	async function handleDeleteUser() {
+		try {
+			await deleteUserAccount();
+            await logout();
+			closeDeleteModal();
+			toggleMenu();
+        } catch (error: any) {
+            triggerToast(error.message, 'error');
+        }
+	}
+
+	function closeDeleteModal() {
+		showDeleteModal = false;
+	}
 
 	export let title = 'title';
 
@@ -98,6 +121,7 @@
 			  	<div class="py-1" role="none">
 					<button title="Upload Video" on:click={openUploadVideoModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200">Upload Video</button>
 					<button title="Logout" on:click={handleLogout} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-red-600 rounded transition duration-200">Log out</button>
+					<button title="Slet kanal" on:click={openDeleteModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-red-600 rounded transition duration-200">Slet kanal</button>
 			  	</div>
 				{/if}
 			</div>
@@ -162,6 +186,19 @@
 
 	{#if showUploadVideoModal}
 		<UploadVideoModal on:close={closeUploadVideoModal}  />
+	{/if}
+
+	{#if showDeleteModal}
+	<Modal title="Er du sikker?" on:close={closeDeleteModal}>
+		<p>Dette vil slette {$userStore?.user.username} permanent.</p>
+		<div class="flex justify-end gap-4 mt-6">
+			<button class="px-4 py-2 rounded-lg bg-red-600 hover:bg-red-700 text-white"
+				on:click={handleDeleteUser}
+			>
+				Slet
+			</button>
+		</div>
+	</Modal>
 	{/if}
 
 

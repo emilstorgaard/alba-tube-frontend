@@ -130,3 +130,22 @@ export async function unsubscribeFromUser(userId: number) {
 
     return await response.json();
 }
+
+export async function deleteUserAccount() {
+    const jwt = getCookie('jwt');
+
+    if (!jwt) {
+        throw new Error("User is not authenticated.");
+    }
+
+    const response = await fetch(`${API_BASE_URL}/users`, {
+        method: "DELETE",
+        headers: { 'Authorization': `Bearer ${jwt}` }
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Account deletion failed.");
+    }
+    return
+}

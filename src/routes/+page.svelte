@@ -28,12 +28,12 @@
 			}
 
 			// Opdater abonnementsstatus i selectedUserStore
-            await fetchSubscriptions();
+			await fetchSubscriptions();
 			await fetchUser($selectedUserStore.id);
 		} catch (e) {
 			console.error('Failed to toggle subscription:', e);
-		}
-	}
+        }
+    }
 </script>
 
 <div class="flex-grow flex flex-col lg:flex-row gap-4 px-4 py-4 min-h-[80vh]">
@@ -74,51 +74,51 @@
 	{/if}
 
 	<!-- Video boks -->
-<div
-    class={`flex flex-col bg-dark-gray rounded-lg shadow-lg p-4 overflow-y-auto
+	<div
+		class={`flex flex-col bg-dark-gray rounded-lg shadow-lg p-4 overflow-y-auto
         lg:h-[80vh] scrollbar-thin scrollbar-thumb-gray scrollbar-track-dark-gray
         ${$userStore ? 'lg:w-3/4 w-full' : 'w-full lg:w-full'}
     `}
->
-    {#if $selectedUserStore}
-        <div class="flex items-center gap-4 mb-4 pb-2 border-b border-gray">
-            <img
-                src={`${API_BASE_URL}/videos/thumbnail/${$selectedUserStore?.profileImageParh}`}
-                alt="Profilbillede"
-                class="w-16 h-16 rounded-full object-cover border-2 border-gray"
-            />
+	>
+		{#if $selectedUserStore}
+			<div class="flex items-center gap-4 mb-4 pb-2 border-b border-gray">
+				<img
+					src={`${API_BASE_URL}/videos/thumbnail/${$selectedUserStore?.profileImageParh}`}
+					alt="Profilbillede"
+					class="w-16 h-16 rounded-full object-cover border-2 border-gray"
+				/>
 
-            <div class="flex flex-col">
-                <h2 class="text-xl font-semibold text-white">
-                    {$selectedUserStore?.username}
-                </h2>
+				<div class="flex flex-col">
+					<h2 class="text-xl font-semibold text-white">
+						{$selectedUserStore?.username}
+					</h2>
 
-                <p class="text-sm text-white">
-                    {$selectedUserStore?.subscriberCount} abonnenter
-                </p>
+					<p class="text-sm text-white">
+						{$selectedUserStore?.subscriberCount} abonnenter
+					</p>
 
-                {#if $userStore && $userStore.user.id !== $selectedUserStore?.id}
-                    <button
-                        class={`px-4 py-2 rounded-lg font-medium mt-2 transition-colors duration-200
-                            ${
-                                $selectedUserStore.isSubscribed
-                                    ? 'bg-white text-gray-800 border border-gray-300 hover:bg-gray-100'
-                                    : 'bg-red-600 hover:bg-red-700 text-white'
-                            }
-                        `}
-                        on:click={toggleSubscribe}
-                    >
-                        {$selectedUserStore.isSubscribed ? 'Afmeld' : 'Abonnér'}
-                    </button>
-                {/if}
-            </div>
-        </div>
-    {:else}
-        <div class="flex items-center gap-4 mb-4 pb-2 border-b border-gray">
-            <h2 class="text-xl font-semibold text-white">Populære videoer</h2>
-        </div>
-    {/if}
+					{#if $userStore && $userStore.user.id !== $selectedUserStore?.id}
+						<button
+							class={`px-4 py-2 rounded-lg font-medium mt-2 transition-colors duration-200
+                    ${
+											$selectedUserStore.isSubscribed
+												? 'bg-white text-gray-800 border border-gray-300 hover:bg-gray-100'
+												: 'bg-red-600 hover:bg-red-700 text-white'
+										}
+                `}
+							on:click={toggleSubscribe}
+						>
+							{$selectedUserStore.isSubscribed ? 'Afmeld' : 'Abonnér'}
+						</button>
+					{/if}
+				</div>
+			</div>
+		{:else}
+			<div class="flex items-center gap-4 mb-4 pb-2 border-b border-gray">
+				<h2 class="text-xl font-semibold text-white">Populære videoer</h2>
+			</div>
+		{/if}
 
-    <VideoList />
-</div>
+		<VideoList />
+	</div>
 </div>

@@ -9,7 +9,7 @@ body {
 /* Apply overflow: hidden only for large screens and above */
 @media (min-width: 1024px) {
 	body {
-	  @apply overflow-hidden;
+	  /* @apply overflow-hidden; */
 	}
   }
 

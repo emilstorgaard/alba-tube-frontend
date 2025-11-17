@@ -149,3 +149,23 @@ export async function dislikeVideo(videoId: Number) {
     }
     return;
 }
+
+export async function deleteVideo(videoId: Number) {
+    const jwt = getCookie('jwt');
+
+    if (!jwt) {
+        throw new Error("User is not authenticated.");
+    }
+
+    const response = await fetch(`${API_BASE_URL}/videos/${videoId}`, {
+        method: "DELETE",
+        headers: { 'Authorization': `Bearer ${jwt}` }
+    });
+
+    if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Video deletion failed.");
+    }
+    
+    return
+}

@@ -24,6 +24,7 @@ export interface Video {
     videoPath: string;
     thumbnailPath: string;
     isLiked: boolean;
+    userId: number;
     viewCount: number;
     likeCount: number;
     createdAtUtc: string;
