@@ -1,33 +1,29 @@
 <script lang="ts">
-    import { usersStore, selectedUserStore } from '$lib/stores/userStore';
+	import { usersStore } from '$lib/stores/userStore';
 	import { fetchSubscriptions } from '$lib/utils/user';
 	import { onMount } from 'svelte';
-    import { API_BASE_URL } from '$lib/utils/config';
+	import { API_BASE_URL } from '$lib/utils/config';
 
-    onMount(() => {
-        fetchSubscriptions();
-    });
-
+	onMount(() => {
+		fetchSubscriptions();
+	});
 </script>
 
-<div class="flex-1 overflow-y-auto mt-2 space-y-2">
-  {#each $usersStore as user}
-    <button 
-      type="button"
-      title="Vælg kanal"
-      class="p-2 w-full rounded-md flex items-center gap-4 justify-between hover:bg-gray hover:cursor-pointer transition outline-none"
-      on:click={() => selectedUserStore.set(user)}
-    >
-      <!-- Profilbillede -->
-      <img
-        src={`${API_BASE_URL}/videos/thumbnail/${user.profileImageParh}`}
-        alt="Profilbillede"
-        class="w-10 h-10 rounded-full object-cover border border-gray"
-      />
+<div class="flex-1 overflow-y-auto mt-2 space-y-4">
+	{#each $usersStore as user}
+		<a
+			href={`/user/${user.id}`}
+			class="flex items-center space-x-3 hover:bg-gray-800 p-2 rounded-xl transition"
+		>
+			<!-- Profilbillede -->
+			<img
+				src={`${API_BASE_URL}/videos/thumbnail/${user.profileImageParh}`}
+				alt="Profilbillede"
+				class="w-12 h-12 rounded-full object-cover border border-gray-700 shadow"
+			/>
 
-      <!-- Brugernavn -->
-      <p class="text-lg text-white font-medium line-clamp-1">{user.username}</p>
-    </button>
-  {/each}
+			<!-- Brugernavn -->
+			<p class="text-lg text-white font-semibold line-clamp-1">{user.username}</p>
+		</a>
+	{/each}
 </div>
-

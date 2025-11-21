@@ -1,7 +1,7 @@
 import { userStore } from "$lib/stores/auth";
-import { playlistsStore, selectedPlaylistStore, selectedPlaylistSongsStore, selectedPlaylistSongStore } from "$lib/stores/playlistStore";
-import { currentSong, isPaused, duration, currentTime, isShuffleEnabled } from "$lib/stores/songStore";
-import { stopSong } from "$lib/utils/audioPlayer";
+import { showSearchResults } from "$lib/stores/searchStore";
+import { selectedUserStore, selectedUserVideosStore, usersStore } from "$lib/stores/userStore";
+import { selectedVideoStore } from "$lib/stores/videoStore";
 import { setCookie, deleteCookie } from "$lib/utils/cookies"
 import { API_BASE_URL } from "./config";
 
@@ -62,31 +62,24 @@ export async function signup(email: string, username: string, password: string, 
         body: formData
     });
 
-    console.log("Signup response:", response);
-
     if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "Signup fejlede");
+        throw new Error(errorData.error || "Oprettelse af konto fejlede");
     }
 
     return
 }
 
 export async function logout() {
-    stopSong();
 
     deleteCookie("jwt")
 
     userStore.set(null);
-    playlistsStore.set([]);
-    selectedPlaylistStore.set(null);
-    selectedPlaylistSongsStore.set([]);
-    selectedPlaylistSongStore.set(null);
-    currentSong.set(null);
-    isPaused.set(true);
-    duration.set(0);
-    currentTime.set(0);
-    isShuffleEnabled.set(false);
+    showSearchResults.set(false);
+    usersStore.set([]);
+    selectedUserStore.set(null);
+    selectedUserVideosStore.set([]);
+    selectedVideoStore.set(null);
 
     return;
 }

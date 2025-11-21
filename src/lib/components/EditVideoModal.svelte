@@ -3,15 +3,13 @@
 	import { userStore } from '$lib/stores/auth';
 	import Modal from './Modal.svelte';
 	import { triggerToast } from '$lib/stores/toastStore';
-	import { fetchVideos, uploadVideo } from '$lib/utils/videos';
-	import { selectedUserStore } from '$lib/stores/userStore';
-	import { goto } from '$app/navigation';
+	import { editVideo, fetchVideo} from '$lib/utils/videos';
+	import { selectedVideoStore } from '$lib/stores/videoStore';
 
-	let title = "";
-	let description = "";
+	let title = $selectedVideoStore?.title || "";
+	let description = $selectedVideoStore?.description || "";
 	let video: File | null = null;
 	let thumbnail: File | null = null;
-	let loading = false;
 
     const dispatch = createEventDispatcher();
 
@@ -29,46 +27,46 @@
         video = target.files?.[0] || null;
     }
 
-	async function handleUploadVideo(event: SubmitEvent) {
+	async function handleEditVideo(event: SubmitEvent) {
         event.preventDefault();
-		loading = true;
 
         try {
 			const jwt = $userStore?.jwt;
+
 			if (!jwt) throw new Error("Authentication token (JWT) is required.");
 
-            await uploadVideo(title, description, thumbnail, video, jwt);
+			const videoId = $selectedVideoStore?.id;
+			if (!videoId) {
+				throw new Error("Video ID is missing. Cannot edit video.");
+			}
+
+            await editVideo($selectedVideoStore.id ,title, description, thumbnail, video, jwt);
 			close()
 
-			if ($selectedUserStore && $userStore && $userStore.user.id === $selectedUserStore.id) {
-				await fetchVideos($selectedUserStore.id);
-			}
+			await fetchVideo($selectedVideoStore.id);
 
 			triggerToast('Video uploaded successfully!', 'success');
         } catch (error: any) {
             triggerToast(error.message, 'error');
-        } finally {
-            loading = false;
-			goto('/user/' + $userStore?.user.id);
         }
     }
 </script>
 
-<Modal title="Upload Video" on:close={close}>
-<form on:submit={handleUploadVideo} class="p-6 space-y-4 md:space-y-6 sm:p-8" enctype="multipart/form-data">
+<Modal title="Rediger Video" on:close={close}>
+<form on:submit={handleEditVideo} class="p-6 space-y-4 md:space-y-6 sm:p-8" enctype="multipart/form-data">
 
 	<div class="space-y-4 md:space-y-6">
 
 		<!-- Title -->
 		<div>
-			<label for="title" class="block mb-2 text-sm font-medium">Title</label>
+			<label for="title" class="block mb-2 text-sm font-medium">Titel</label>
 			<input
 				type="text"
 				name="title"
 				bind:value={title}
 				id="title"
 				class="w-full bg-gray text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-green"
-				placeholder="Title"
+				placeholder="Titel"
 				required
 			/>
 		</div>
@@ -108,7 +106,6 @@
 				bind:value={video}
 				id="video"
 				accept="video/*"
-				required
 				class="w-full bg-gray text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-green"
 				on:change={handleVideoChange}
 			/>
@@ -116,17 +113,10 @@
 		
 		<button
 			type="submit"
-			title="Upload"
+			title="Rediger"
 			class="w-full bg-green text-white hover:bg-light-green px-4 py-2 rounded-md font-semibold transition duration-300 ease-in-out"
 		>
-			 {#if loading}
-                    <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
-                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
-                    </svg>
-                {:else}
-                    Upload
-                {/if}
+			Rediger
 		</button>
 	</div>
 </form>

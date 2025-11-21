@@ -34,7 +34,7 @@
 
 </script>
 
-<Modal title="Signup" on:close={close}>
+<Modal title="Opret konto" on:close={close}>
 	<form on:submit={handleSignup}>
 		<div class="space-y-4 md:space-y-6" >
 			<div>
@@ -58,6 +58,7 @@
 					class="w-full bg-gray text-white p-2 rounded block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-green"
 					placeholder="Jens Jensen"
 					required
+					autocomplete="username"
 				/>
 			</div>
 			<div>
@@ -82,6 +83,7 @@
 					placeholder="••••••••"
 					class="w-full bg-gray text-white p-2 rounded block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-green"
 					required
+					autocomplete="new-password"
 				/>
 			</div>
 			<div>
@@ -94,10 +96,11 @@
 					placeholder="••••••••"
 					class="w-full bg-gray text-white p-2 rounded block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-green"
 					required
+					autocomplete="new-password"
 				/>
 			</div>
 
-			<button type="submit" title="Signup" class="w-full bg-green text-white hover:bg-light-green px-4 py-2 rounded-md font-semibold transition duration-300 ease-in-out">Signup</button>
+			<button type="submit" title="Opret konto" class="w-full bg-green text-white hover:bg-light-green px-4 py-2 rounded-md font-semibold transition duration-300 ease-in-out">Opret konto</button>
 		</div>
 	</form>
 </Modal>

@@ -39,6 +39,7 @@
                     class="w-full bg-gray text-white p-2 rounded block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-green"
                     placeholder="jens@jensen.com"
                     required
+                    autocomplete="username"
                 />
             </div>
             <div>
@@ -51,6 +52,7 @@
                     placeholder="••••••••"
                     class="w-full bg-gray text-white p-2 rounded block w-full p-2.5 focus:outline-none focus:ring-2 focus:ring-green"
                     required
+                    autocomplete="current-password"
                 />
             </div>
 

@@ -8,7 +8,7 @@
 </script>
 
 <div class="flex-1 overflow-y-auto mt-2 space-y-2">
-    {#each videos as video, index}
+    {#each videos as video (video.id)}
         <div class="p-2 rounded-md flex items-center gap-4 justify-between relative group hover:bg-gray hover:cursor-pointer transition border-b border-gray">
                            <a
                     href={`/video/${video.id}`}
@@ -33,7 +33,6 @@
             <div class="text-left w-full flex justify-between items-center">
                 <div>
                     <h3 class="text-lg font-semibold text-white">{video.title}</h3>
-                    <p class="text-sm text-light-gray">{video.likeCount}</p>
                 </div>
                 <div class="text-sm text-light-gray w-12 text-right tabular-nums">
                     {formatDuration(video.duration)}

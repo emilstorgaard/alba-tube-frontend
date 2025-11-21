@@ -2,7 +2,7 @@
 	import Search from "./Search.svelte";
 	import LoginModal from '$lib/components/LoginModal.svelte';
 	import SignupModal from '$lib/components/SignupModal.svelte';
-	import UploadVideoModal from "./UploadVideoModal.svelte";
+	import UploadVideoModal from '$lib/components/UploadVideoModal.svelte';
 	import { logout } from "$lib/utils/auth";
 	import { userStore } from '$lib/stores/auth';
 	import { triggerToast } from "$lib/stores/toastStore";
@@ -114,7 +114,7 @@
 			<div class="{isMenuOpen ? '' : 'hidden'} absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-dark-gray rounded-md bg-gray shadow-lg ring-1 ring-black/5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
 				{#if !$userStore} 
 			  	<div class="py-1" role="none">
-					<button title="Signup" on:click={openSignupModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200">Signup</button>
+					<button title="Opret konto" on:click={openSignupModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200">Opret Konto</button>
 					<button title="Login" on:click={openLoginModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200">Log in</button>
 			  	</div>
 				{:else}
@@ -156,8 +156,8 @@
 				<div class="-my-6 divide-y divide-dark-gray">
 					<div class="space-y-4 py-6">
 						{#if !$userStore} 
-						<button title="Signup" on:click={openSignupModal} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-blue-600 rounded hover:bg-blue-700 transition duration-200">
-							Signup
+						<button title="Opret konto" on:click={openSignupModal} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-blue-600 rounded hover:bg-blue-700 transition duration-200">
+							Opret konto
 						</button>
 						<button title="Login" on:click={openLoginModal} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-green rounded hover:bg-light-green transition duration-200">
 							Log in

@@ -7,7 +7,6 @@ export async function fetchUserData() {
     const jwt = getCookie('jwt')
 
     if (!jwt) {
-      console.warn("JWT not found in cookies. User might not be logged in.");
       return;
     }
 
@@ -22,27 +21,25 @@ export async function fetchUserData() {
     }
 
     const data = await response.json();
-
     userStore.set({ jwt, user: data });
 }
 
 export async function fetchUser(userId: number) {
-    console.log("Fetching user with ID:", userId);
-    const jwt = getCookie('jwt')
+    const jwt = getCookie('jwt');
+    const headers: Record<string, string> = {};
 
-    if (!jwt) {
-      console.warn("JWT not found in cookies. User might not be logged in.");
-      return;
+    if (jwt) {
+        headers['Authorization'] = `Bearer ${jwt}`;
     }
 
     const response = await fetch(`${API_BASE_URL}/users/${userId}`, {
         method: "GET",
-        headers: { 'Authorization': `Bearer ${jwt}` }
+        headers
     });
 
     if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || "FetchUser fejlede");
+        throw new Error(errorData.error || "Get user by id failed.");
     }
 
     const data = await response.json();

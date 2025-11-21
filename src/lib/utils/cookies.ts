@@ -29,7 +29,6 @@ export function deleteCookie(
 
 export function getCookie(name: string): string | null {
     if (!browser) return null; // server cannot read document.cookie
-
     const nameEQ = name + "=";
     const ca = document.cookie.split(';');
     for (let i = 0; i < ca.length; i++) {

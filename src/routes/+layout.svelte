@@ -8,7 +8,6 @@
 
 	import { userStore } from '$lib/stores/auth';
 	import Toast from '$lib/components/Toast.svelte';
-	import { currentSong } from '$lib/stores/songStore';
 	import { fetchUserData } from '$lib/utils/user';
 
 	$: if (!$page.data.loggedInUser) {
@@ -18,12 +17,10 @@
 	$: if ($page.data.loggedInUser) {
 		fetchUserData();
     }
-
-	$: title = $currentSong ? `${$currentSong.title} - ${$currentSong.artist}` : 'AlbaTube';
 </script>
 
 <svelte:head>
-	<title>{title}</title>
+	<title>AlbaTube</title>
 </svelte:head>
 
 <Header title="AlbaTube" />
