@@ -115,12 +115,12 @@
 				{#if !$userStore} 
 			  	<div class="py-1" role="none">
 					<button title="Opret konto" on:click={openSignupModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200">Opret Konto</button>
-					<button title="Login" on:click={openLoginModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200">Log in</button>
+					<button title="Log ind" on:click={openLoginModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200">Log ind</button>
 			  	</div>
 				{:else}
 			  	<div class="py-1" role="none">
 					<button title="Upload Video" on:click={openUploadVideoModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-light-gray transition duration-200">Upload Video</button>
-					<button title="Logout" on:click={handleLogout} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-red-600 rounded transition duration-200">Log out</button>
+					<button title="Log ud" on:click={handleLogout} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-red-600 rounded transition duration-200">Log ud</button>
 					<button title="Slet kanal" on:click={openDeleteModal} class="block w-full text-left px-4 py-2 text-sm text-light-gray hover:text-white hover:bg-red-600 rounded transition duration-200">Slet kanal</button>
 			  	</div>
 				{/if}
@@ -159,15 +159,15 @@
 						<button title="Opret konto" on:click={openSignupModal} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-blue-600 rounded hover:bg-blue-700 transition duration-200">
 							Opret konto
 						</button>
-						<button title="Login" on:click={openLoginModal} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-green rounded hover:bg-light-green transition duration-200">
-							Log in
+						<button title="Log ind" on:click={openLoginModal} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-green rounded hover:bg-light-green transition duration-200">
+							Log ind
 						</button>
 						{:else}
 						<button title="Upload Video" on:click={openUploadVideoModal} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-green rounded hover:bg-light-green transition duration-200">
 							Upload Video
 						</button>
-						<button title="Logout" on:click={handleLogout} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-red-600 rounded hover:bg-red-700 transition duration-200">
-							Log out
+						<button title="Log ud" on:click={handleLogout} class="w-full max-w-md block py-2 px-4 text-center text-sm text-white bg-red-600 rounded hover:bg-red-700 transition duration-200">
+							Log ud
 						</button>
 						{/if}
 					</div>

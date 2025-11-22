@@ -73,13 +73,7 @@ export async function signup(email: string, username: string, password: string, 
 export async function logout() {
 
     deleteCookie("jwt")
-
     userStore.set(null);
-    showSearchResults.set(false);
-    usersStore.set([]);
-    selectedUserStore.set(null);
-    selectedUserVideosStore.set([]);
-    selectedVideoStore.set(null);
 
     return;
 }
